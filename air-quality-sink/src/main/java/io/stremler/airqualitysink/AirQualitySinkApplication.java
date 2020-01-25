@@ -1,5 +1,8 @@
 package io.stremler.airqualitysink;
 
+import io.stremler.airqualitysink.model.Station;
+import io.stremler.airqualitysink.repository.StationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -10,13 +13,16 @@ import java.util.function.Consumer;
 @SpringBootApplication
 public class AirQualitySinkApplication {
 
+	@Autowired
+	private StationRepository stationRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(AirQualitySinkApplication.class, args);
 	}
 
 	@Bean
-	public Consumer<Flux<String>> stringConsumer(){
-		return flux -> flux.subscribe(System.out::println);
+	public Consumer<Flux<Station>> store(){
+		return flux -> flux.subscribe(stationRepository::save);
 	}
 
 }

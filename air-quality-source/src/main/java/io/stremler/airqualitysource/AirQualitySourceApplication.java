@@ -6,7 +6,6 @@ import io.stremler.airqualitysource.model.StationMap;
 import io.stremler.airqualitysource.service.UrlBuilderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.function.context.PollableBean;

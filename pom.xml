@@ -10,7 +10,6 @@
 
     <modules>
 		<module>air-quality-source</module>
-		<module>air-quality-processor</module>
 		<module>air-quality-sink</module>
     </modules>
 
