@@ -40,7 +40,7 @@ public class AirQualitySourceApplication {
         log.info("Polling...");
         return () -> route(urlBuilderService.buildStationsUrl(), StationMap.class).map(response -> response.getData())
                 .log()
-                .flatMap(Flux::fromIterable).limitRequest(1)
+                .flatMap(Flux::fromIterable)//.limitRequest(1)
                 .flatMap(station -> route(urlBuilderService.buildCountryUrl(station.getUid().toString()), Station.class))
                 .map(response -> response.getData())
                 .flatMap(Flux::fromIterable);
