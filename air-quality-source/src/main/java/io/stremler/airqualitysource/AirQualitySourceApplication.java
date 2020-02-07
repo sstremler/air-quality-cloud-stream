@@ -21,7 +21,6 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SpringBootApplication
-@EnableScheduling
 @Slf4j
 public class AirQualitySourceApplication {
 
