@@ -1,6 +1,6 @@
 package io.stremler.airqualitysink;
 
-import io.stremler.airqualitysink.model.Station;
+import io.stremler.airqualitysink.model.Measurement;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.UnicastProcessor;
@@ -13,11 +13,11 @@ public class Batcher {
 
     private static final UnicastProcessor processor = UnicastProcessor.create();
 
-    public void next(Station element) {
+    public void next(Measurement element) {
         processor.sink().next(element);
     }
 
-    public Flux<List<Station>> listen() {
+    public Flux<List<Measurement>> listen() {
         return processor.bufferTimeout(10, Duration.ofSeconds(10));
     }
 

@@ -14,7 +14,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @ToString
 @Entity
-public class Station {
+public class Measurement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

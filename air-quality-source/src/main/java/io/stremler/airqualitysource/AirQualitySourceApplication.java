@@ -1,8 +1,8 @@
 package io.stremler.airqualitysource;
 
 import io.stremler.airqualitysource.model.Response;
+import io.stremler.airqualitysource.model.Measurement;
 import io.stremler.airqualitysource.model.Station;
-import io.stremler.airqualitysource.model.StationMap;
 import io.stremler.airqualitysource.service.UrlBuilderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.function.context.PollableBean;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.ResolvableType;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriBuilder;
 import reactor.core.publisher.Flux;
@@ -35,12 +34,12 @@ public class AirQualitySourceApplication {
     }
 
     @PollableBean
-    public Supplier<Flux<Station>> stationSupplier() {
+    public Supplier<Flux<Measurement>> stationSupplier() {
         log.info("Polling...");
-        return () -> route(urlBuilderService.buildStationsUrl(), StationMap.class).map(response -> response.getData())
+        return () -> route(urlBuilderService.buildStationsUrl(), Station.class).map(response -> response.getData())
                 .log()
                 .flatMap(Flux::fromIterable)//.limitRequest(1)
-                .flatMap(station -> route(urlBuilderService.buildCountryUrl(station.getUid().toString()), Station.class))
+                .flatMap(station -> route(urlBuilderService.buildCountryUrl(station.getUid().toString()), Measurement.class))
                 .map(response -> response.getData())
                 .flatMap(Flux::fromIterable);
     }
